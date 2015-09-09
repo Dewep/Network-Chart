@@ -7,7 +7,6 @@
         this.dom_current = $("#componentPingCurrent");
         this.dom_average = $("#componentPingAverage");
         this.dom_packets_lost = $("#componentPingPacketsLost");
-        this.dom_packets = $("#componentPingPackets");
 
         this.next_ping = [];
         this.history_data = [];
@@ -36,7 +35,24 @@
             value: 1,
             domain: [0, 1],
             format: function(v){
-                return (v * 100).toFixed(2) + '%';
+                if (v > 0.99) {
+                    return "Excellent"
+                }
+                if (v > 0.95) {
+                    return "Good"
+                }
+                if (v > 0.90) {
+                    return "Correct"
+                }
+                if (v > 0.70) {
+                    return "Bad"
+                }
+                if (v > 0.50) {
+                    return "Really bad"
+                }
+                if (v > 0.50) {
+                    return "Limited"
+                }
             },
             fps: 1
         });
@@ -54,6 +70,7 @@
     window.Ping.prototype.update = function Ping_Update() {
         var value = this.next_ping.shift();
         var time = ((new Date()).getTime() / 1000) | 0;
+
         if (value) {
             this.ping_chart.push([{ time: time, y: value }, { time: time, y: 0 }]);
             this.dom_current.text(value);
@@ -65,11 +82,14 @@
             this.dom_current.text("~");
             this.history_data.push(0);
         }
+
         if (this.history_quality_data.length > 0) {
             this.packets_chart.update(1 - this.history_quality_lost / this.history_quality_data.length);
+            this.dom_packets_lost.text((this.history_quality_lost * 100 / this.history_quality_data.length).toFixed(1));
+        } else {
+            this.dom_packets_lost.text("0.0");
         }
-        this.dom_packets_lost.text(this.history_quality_lost);
-        this.dom_packets.text(this.history_quality_data.length);
+
         if (this.history_data.length > 300) {
             value = this.history_data.shift();
             if (value > 0) {
@@ -85,6 +105,7 @@
         var ping = spawn('ping', [this.ip, "-t"]);
         var buf = "";
         var self = this;
+
         ping.stdout.on('data', function(bin) {
             buf += bin.toString();
             var lines = buf.split("\n");

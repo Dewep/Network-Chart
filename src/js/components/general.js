@@ -1,5 +1,7 @@
 (function(){
 
+    var gui = require('nw.gui');
+
     window.ComponentsExecute = function ComponentsExecute(components) {
         var instances = {};
         var i = 0;
@@ -25,5 +27,13 @@
             instances[components[i].name].execute.apply(instances[components[i].name], arguments);
         }
     };
+
+    var shortcut = new gui.Shortcut({
+        key : "Ctrl+Shift+I",
+        active : function() {
+            gui.Window.get().showDevTools();
+        }
+    });
+    gui.App.registerGlobalHotKey(shortcut);
 
 })();
