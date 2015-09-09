@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <!-- General -->
+        <title>Network Chart</title>
+        <meta charset="utf-8">
+        <!-- CSS -->
+        <link href="css/bootstrap.simplex.min.css" rel="stylesheet">
+        <!--<link href="css/bootstrap-theme.min.css" rel="stylesheet">-->
+        <link href="css/epoch.min.css" rel="stylesheet">
+        <link href="css/custom.min.css" rel="stylesheet">
+        <!-- Lib JS -->
+        <script src="js/jquery-1.11.3.min.js"></script>
+        <script src="js/bootstrap.min.js"></script>
+        <script src="js/d3.min.js"></script>
+        <script src="js/epoch.min.js"></script>
+    </head>
+    <body class="container epoch-theme-default">
+        <!-- Interface -->
+        <div class="row">
+            <div class="col-lg-10">
+                <div class="panel panel-default panel-condensed">
+                    <div class="panel-heading">
+                        <h4 class="panel-title">Response time</h4>
+                    </div>
+                    <div class="panel-body">
+                        <div class="clearfix">
+                            <span class="label" style="background: #1f77b4">Response time</span>
+                            <span class="label" style="background: #ff7f0e">Error</span>
+                            <span class="label label-default pull-right">Response time (ms)</span>
+                        </div>
+                        <div id="componentPingChart" class="epoch category10 center-block" style="height: 200px"></div>
+                    </div>
+                </div>
+                <div class="panel panel-default panel-condensed">
+                    <div class="panel-heading">
+                        <h4 class="panel-title">Network usage</h4>
+                    </div>
+                    <div class="panel-body">
+                        <div class="clearfix">
+                            <span id="componentRouterChartCaptions"></span>
+                            <span class="label label-default pull-right">Network usage (kb/s)</span>
+                        </div>
+                        <div id="componentRouterChart" class="epoch category20 center-block" style="height: 200px"></div>
+                    </div>
+                    <table class="table table-condensed text-center">
+                        <thead>
+                            <tr>
+                                <th>Client name</th>
+                                <th>Client MAC</th>
+                                <th>Client IP</th>
+                                <th>Current bytes</th>
+                                <th>Current packets</th>
+                                <th>Total bytes</th>
+                            </tr>
+                        </thead>
+                        <tbody id="componentRouterTable">
+                        </tbody>
+                        <tfoot>
+                            <tr>
+                                <th>Total</th>
+                                <th></th>
+                                <th></th>
+                                <th id="componentRouterTableCurrentBytes">- kb/s</th>
+                                <th id="componentRouterTableCurrentPackets">-</th>
+                                <th id="componentRouterTableTotalBytes">- Mb</th>
+                            </tr>
+                        </tfoot>
+                    </table>
+                </div>
+            </div>
+            <div class="col-lg-2">
+                <h2 class="text-center"><b>Network Chart</b></h2>
+                <h4 class="text-center"><small>github.com/Dewep/Network-Chart</small></h4>
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h4 class="panel-title">Current ping</h4>
+                    </div>
+                    <div class="panel-body text-center">
+                        <h3><b id="componentPingCurrent">111</b> <small>ms</small></h3>
+                    </div>
+                    <ul class="list-group">
+                        <li class="list-group-item text-center"><h5>Average (last 5m): <b id="componentPingAverage">-</b> <small>ms</small></h5></li>
+                    </ul>
+                </div>
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h4 class="panel-title">Connection quality</h4>
+                    </div>
+                    <div class="panel-body text-center">
+                        <div id="componentPingPacketsChart" class="epoch gauge-tiny center-block"></div>
+                    </div>
+                    <ul class="list-group">
+                        <li class="list-group-item text-center"><small><span id="componentPingPacketsLost">0</span> packets on <span id="componentPingPackets">0</span> lost</small></li>
+                    </ul>
+                </div>
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h4 class="panel-title">Network usage</h4>
+                    </div>
+                    <div class="panel-body text-center">
+                        <h3><b id="componentRouterCurrent">-</b> <small>kb/s</small></h3>
+                    </div>
+                    <ul class="list-group">
+                        <li class="list-group-item text-center"><h5>Average (last 5m): <b id="componentRouterAverage">-</b> <small>kb/s</small></h5></li>
+                    </ul>
+                </div>
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h4 class="panel-title">Reset router statistics</h4>
+                    </div>
+                    <div class="panel-body text-center">
+                        <button class="btn btn-danger" id="componentRouterReset">Reset data</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Scripts JS -->
+        <script src="js/components/general.js"></script>
+        <script src="js/components/ping.js"></script>
+        <script src="js/components/router.js"></script>
+        <script src="js/components/router/tplink.js"></script>
+        <script>
+            (function(){
+                var components = [
+                    {
+                        "type": Ping,
+                        "arguments": ["8.8.8.8"]
+                    },
+                    {
+                        "type": Router
+                    },
+                    {
+                        "type": Router_TPLink,
+                        "arguments": ["192.168.1.1", "admin", "admin"],
+                        "dependencies": ["Router"]
+                    }
+                ];
+                ComponentsExecute(components);
+            })();
+        </script>
+    </body>
+</html>

@@ -1,0 +1,24 @@
+{
+    "name": "Network-Chart",
+    "description": "Network Chart",
+    "main": "src/interface.html",
+    "version": "2.0.0",
+    "author": "Aurelien Maigret - Dewep <dewep.net@gmail.com>",
+    "homepage": "http://www.dewep.net/",
+    "license": "GPL-2",
+    "repository": {
+        "type": "git",
+        "url": "git://github.com/Dewep/Network-Chart.git"
+    },
+    "bugs": {
+        "url": "https://github.com/Dewep/Network-Chart/issues"
+    },
+    "window": {
+        "icon": "assets/icon.png",
+        "toolbar": false,
+        "width": 1600,
+        "height": 900,
+        "min_width": 1600,
+        "min_height": 600
+    }
+}

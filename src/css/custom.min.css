@@ -1,0 +1,5 @@
+@media(min-width:1600px){.container{width:/*1570px*/100%;}}
+#componentPingChart .layer-1 .area{fill:red;}
+.color-identifier{width:40px;height:15px;display:inline-block;}
+.text-center th{text-align:center}
+.panel-condensed .panel-body{padding: 5px 15px}
