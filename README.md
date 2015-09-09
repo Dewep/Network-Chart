@@ -2,4 +2,10 @@
 Charts/statistics for TP Link router
 
 # RIP
-Ici aurait pu se trouver un projet, si je n'avais pas malencontreusement fait un `rm -r`.
+Here could be a project if I hadn't done accidentally a `rm -r`.
+
+## Preview
+![Preview](https://github.com/Dewep/TP-Link-Chart/raw/master/preview.png)
+
+## Logo
+![Logo](https://github.com/Dewep/TP-Link-Chart/raw/master/logo.png)
