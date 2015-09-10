@@ -2,7 +2,11 @@
 Charts/statistics for TP Link router.
 
 ## Preview
-![Preview](https://github.com/Dewep/TP-Link-Chart/raw/master/assets/preview.png)
+![Preview](https://github.com/Dewep/Network-Chart/raw/master/assets/preview.png)
+
+## Download
+[Network-Chart-2.0.0-win64](https://github.com/Dewep/Network-Chart/releases)
+The "Network usage" part works only with a TP-Link router (tested on the firmware 3.13.15).
 
 ## Build
 ```bash
